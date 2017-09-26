@@ -1,0 +1,6 @@
+.Game-board {
+  width: 400px;
+  height: 400px;
+  background-color: #000;
+  border-radius: 100px;
+}

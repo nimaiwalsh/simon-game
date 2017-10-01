@@ -5,9 +5,9 @@ import Button from '../Button/index.js';
 
 const GameBoard = () => {
   //Render buttons
-  const renderBtn = (id) => {
+  const renderBtn = (buttonRef) => {
     return (
-      <Button buttonRef={id}/>
+      <Button buttonRef={buttonRef}/>
     )
   }
   return (

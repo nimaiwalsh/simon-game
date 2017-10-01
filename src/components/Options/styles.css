@@ -1,9 +1,13 @@
 .Options {
-  background-color: #fff;
-  width: 150px;
-  height: 100px;
+  background-color: #F3EAEA;
+  width: 180px;
+  height: 110px;
   position: absolute;
   top: 50%;
   left: 50%;
-  transform: translate(-75px, -50px);
+  transform: translate(-90px, -50px);
+}
+
+.Button-container {
+  text-align: center;
 }

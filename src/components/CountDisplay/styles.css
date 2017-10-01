@@ -1,0 +1,17 @@
+.Count-window {
+  background-color: #241D1D;
+  color: greenyellow;
+  font-size: 1.4rem;
+  border-radius: 5px;
+  width: 50%;
+  height: 40px;
+  margin: 4px auto 0 auto;
+  display: flex;
+  justify-content: center;
+  align-items: center; 
+}
+
+.Count > h3 {
+  text-align: center;
+  font-size: 1.2rem;
+}

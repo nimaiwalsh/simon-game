@@ -11,7 +11,20 @@
   height: 25px;
   border-radius: 50%;
   cursor: pointer;
-  padding: 0 10px
+  padding: 0 10px;
+  transition: background-color 1s;
+}
+
+button.on-on {
+  background-color: #A4F425;
+}
+
+button.strict-on {
+  background-color: #CD3333;
+}
+
+button.start-on {
+  background-color: greenyellow;
 }
 
 .Option-button > button:focus {

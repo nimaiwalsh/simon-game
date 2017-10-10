@@ -3,19 +3,23 @@ import './styles.css';
 import Options from '../Options/index.js';
 import Button from '../Button/index.js';
 
-const GameBoard = ({handleClick}) => {
+const GameBoard = ({handleClick, handleClickOptions, buttonToggles, optionButtonsToggles}) => {
   //Render buttons
   const renderBtn = (buttonRef, num) => {
     return (
       <Button 
         buttonRef={buttonRef}
-        handleClick={() => handleClick(num)}
+        toggle={buttonToggles[buttonRef]}
+        handleClick={() => handleClick(buttonRef, num)}
       />
     )
   }
   return (
     <div className="Game-board">
-      <Options />
+      <Options 
+        handleClick={(classValue) => handleClickOptions(classValue)}
+        optionButtonsToggles={optionButtonsToggles}
+      />
       {renderBtn('greenBtn', 0)}
       {renderBtn('redBtn', 1)}
       {renderBtn('blueBtn', 2)}

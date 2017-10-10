@@ -1,10 +1,11 @@
 import React from 'react';
 import './styles.css';
 
-const Button = ({buttonRef, handleClick}) => {
+const Button = ({buttonRef, handleClick, toggle}) => {
+  const toggleClassName = toggle ? `${buttonRef}-on` : '';
   return (
     <button 
-      className={`button ${buttonRef}`}
+      className={`button ${buttonRef} ${toggleClassName}`}
       onClick={handleClick}
     ></button>
   )

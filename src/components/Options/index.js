@@ -3,12 +3,14 @@ import './styles.css';
 import CountDisplay from '../CountDisplay/index.js';
 import OptionButton from '../OptionButton/index.js';
 
-const Options = () => {
+const Options = ({handleClick, optionButtonsToggles}) => {
   const renderButton = (classValue, value) => {
     return (
       <OptionButton 
         classValue={classValue}
         value={value}
+        handleClick={() => handleClick(classValue)}
+        optionButtonToggle={optionButtonsToggles[classValue]}
       />
     )
   }
@@ -17,9 +19,9 @@ const Options = () => {
     <div className="Options">
       <CountDisplay />
       <div className="Button-container">
-        {renderButton('On-button', 'On/Off')}
-        {renderButton('Strict-button', 'Strict')}
-        {renderButton('Start-button', 'Start')}
+        {renderButton('on', 'On/Off')}
+        {renderButton('strict', 'Strict')}
+        {renderButton('start', 'Start')}
       </div>
     </div>
   )

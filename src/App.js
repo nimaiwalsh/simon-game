@@ -29,6 +29,12 @@ class App extends Component {
       return { buttonToggle: { [buttonRef]: !prevState.buttonToggle[buttonRef]} } 
     })
     this.playSound(buttonRef)
+    //Turn button off after clicked - 2 second delay
+    setTimeout(() => {
+      this.setState((prevState) => {
+        return { buttonToggle: { [buttonRef]: !prevState.buttonToggle[buttonRef]} } 
+      })
+    }, 2000)
   }
 
   //Toggle the game options on/off
@@ -78,13 +84,14 @@ class App extends Component {
     const moves = this.state.computerMoves;
     moves.push(randomNum);
     this.setState({ computerMoves: moves })
-    this.drawComputerMoves([1, 2, 3, 4]);
+    this.drawComputerMoves(moves);
   }
   //Render computer sequence
   drawComputerMoves(moves) {
-    moves.forEach((move) => {    
+    moves.forEach((moves, index) => {
+      setTimeout(() => {
       let buttonRef = 0;
-      switch (move) {
+      switch (moves) {
         case 1:
           buttonRef = 'greenBtn'
           break;
@@ -102,6 +109,7 @@ class App extends Component {
       }
       this.activeButton(buttonRef)
       console.log(buttonRef)
+      }, 1500 * index)
     })
   }
 

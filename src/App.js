@@ -2,39 +2,53 @@ import React, { Component } from 'react';
 import logo from './logo.svg';
 import './App.css';
 import GameBoard from './components/GameBoard/index.js';
+import playSound from './utils/playSound.js';
 
 class App extends Component {
   constructor() {
     super();
     this.state = {
-      buttonToggle: {
-        greenBtn: false,
-        redBtn: false,
-        blueBtn: false,
-        yellowBtn: false,
-      },
+      buttonToggle: {button: false},
       optionButtonsToggles: {
         on: false,
         strict: false,
       },
       count: '--',
-      computerTurn: false,
+      computerTurn: true,
       computerMoves: [],
       playerMoves: [],
     }
   }
-  //Toggle the button highlight on/off
-  activeButton(buttonRef) {
-    this.setState((prevState) => {
-      return { buttonToggle: { [buttonRef]: !prevState.buttonToggle[buttonRef]} } 
+  //Player button click functions
+  playerBtnClick(buttonRef) {
+    let buttonOrder = ['greenBtn', 'redBtn', 'blueBtn', 'yellowBtn'].indexOf(buttonRef) + 1
+    const playerMoves = this.state.playerMoves
+    playerMoves.push(buttonOrder)
+    this.setState({
+      buttonToggle: {[buttonRef]: true},
+      playerMoves: playerMoves
     })
-    this.playSound(buttonRef)
-    //Turn button off after clicked - 2 second delay
-    setTimeout(() => {
-      this.setState((prevState) => {
-        return { buttonToggle: { [buttonRef]: !prevState.buttonToggle[buttonRef]} } 
-      })
-    }, 2000)
+    playSound(buttonRef)
+  }
+
+  playerBtnUp(buttonRef) {
+    this.setState({ 
+      buttonToggle: { [buttonRef]: false },
+      computerTurn: true,
+    })
+    this.matchSequence()
+  }
+  //Match computer sequence
+  matchSequence() {
+    const computerMoves = this.state.computerMoves
+    const playerMoves = this.state.playerMoves
+    //retrun true if arrays match or else return false
+    const compareArrays = (arr1, arr2) => {
+      return arr1.length === arr2.length 
+        && arr1.every((element, index) => element === arr2[index]);
+    }
+    //Same sequence continue
+    (compareArrays(computerMoves, playerMoves)) ? this.computerMove() : console.log('no match');
   }
 
   //Toggle the game options on/off
@@ -49,42 +63,20 @@ class App extends Component {
 
   //Startbutton clicked
   startBtnClicked() {
-    //Reset the game state and start computer turn
     this.setState({
       computerMoves: [],
       playerMoves: [],
       computerTurn: true,
-    }, () => this.computerRandom())
-  }
-
-  playSound(buttonRef) {
-    const sound1 = new Audio(require(`./assets/simonSound1.mp3`));
-    const sound2 = new Audio(require('./assets/simonSound2.mp3'));
-    const sound3 = new Audio(require('./assets/simonSound3.mp3'));
-    const sound4 = new Audio(require('./assets/simonSound4.mp3'));
-    switch(buttonRef) {
-      case 'greenBtn':
-        sound1.play()
-        break;
-      case 'redBtn':
-        sound2.play()
-        break;
-      case 'blueBtn':
-        sound3.play()
-        break;
-      case 'yellowBtn':
-        sound4.play()
-        break;
-    }
+    }, () => this.computerMove())
   }
 
   //Computer random sequence
-  computerRandom() {
+  computerMove() {
     const randomNum = Math.floor(Math.random() * 4 + 1);
     const moves = this.state.computerMoves;
     moves.push(randomNum);
     this.setState({ computerMoves: moves })
-    this.drawComputerMoves(moves);
+    setTimeout(() => {this.drawComputerMoves(moves)}, 2000);
   }
   //Render computer sequence
   drawComputerMoves(moves) {
@@ -107,17 +99,30 @@ class App extends Component {
         default:
           break;
       }
-      this.activeButton(buttonRef)
+      this.renderComputerMove(buttonRef)
       console.log(buttonRef)
-      }, 1500 * index)
+      }, 2000 * index)
     })
+    this.setState({computerTurn: false})
+  }
+
+  renderComputerMove(buttonRef) {
+    this.setState({
+      buttonToggle: {[buttonRef]: true},
+    })
+    playSound(buttonRef)
+    //Turn button off after 2 second delay
+    setTimeout(() => {
+      this.setState({ buttonToggle: { [buttonRef]: false }})
+    }, 1500)
   }
 
   render() {
     return (
       <div className="App">
         <GameBoard 
-          handleClick={(buttonRef, num) => this.activeButton(buttonRef, num)}
+          handleMouseDown={(buttonRef) => this.playerBtnClick(buttonRef)}
+          handleMouseUp={(buttonRef) => this.playerBtnUp(buttonRef)}
           handleClickOptions={(button) => this.toggleOptionsButtons(button)}
           buttonToggles={this.state.buttonToggle}
           optionButtonsToggles={this.state.optionButtonsToggles}

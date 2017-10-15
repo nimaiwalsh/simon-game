@@ -3,14 +3,15 @@ import './styles.css';
 import Options from '../Options/index.js';
 import Button from '../Button/index.js';
 
-const GameBoard = ({handleClick, handleClickOptions, buttonToggles, optionButtonsToggles, computerTurn}) => {
+const GameBoard = ({handleMouseDown, handleMouseUp, handleClickOptions, buttonToggles, optionButtonsToggles, computerTurn}) => {
   //Render buttons
   const renderBtn = (buttonRef) => {
     return (
       <Button 
         buttonRef={buttonRef}
         toggle={buttonToggles[buttonRef]}
-        handleClick={() => handleClick(buttonRef)}
+        handleMouseDown={() => handleMouseDown(buttonRef)}
+        handleMouseUp={() => handleMouseUp(buttonRef)}
       />
     )
   }

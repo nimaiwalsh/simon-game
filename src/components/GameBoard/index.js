@@ -3,7 +3,15 @@ import './styles.css';
 import Options from '../Options/index.js';
 import Button from '../Button/index.js';
 
-const GameBoard = ({handleMouseDown, handleMouseUp, handleClickOptions, buttonToggles, optionButtonsToggles, computerTurn}) => {
+const GameBoard = ({
+  handleMouseDown, 
+  handleMouseUp, 
+  handleClickOptions, 
+  buttonToggles, 
+  optionButtonsToggles, 
+  computerTurn,
+  count,
+  }) => {
   //Render buttons
   const renderBtn = (buttonRef) => {
     return (
@@ -20,6 +28,7 @@ const GameBoard = ({handleMouseDown, handleMouseUp, handleClickOptions, buttonTo
       <Options 
         handleClick={(classValue) => handleClickOptions(classValue)}
         optionButtonsToggles={optionButtonsToggles}
+        count={count}
       />
       {renderBtn('greenBtn')}
       {renderBtn('redBtn')}

@@ -13,7 +13,6 @@ class App extends Component {
         on: false,
         strict: false,
       },
-      count: '--',
       computerTurn: true,
       computerMoves: [],
       playerMoves: [],
@@ -42,13 +41,18 @@ class App extends Component {
   matchSequence() {
     const computerMoves = this.state.computerMoves
     const playerMoves = this.state.playerMoves
-    //retrun true if arrays match or else return false
+    let playerCount = playerMoves.length - 1 
+    //returns true if arrays match or else return false
     const compareArrays = (arr1, arr2) => {
       return arr1.length === arr2.length 
         && arr1.every((element, index) => element === arr2[index]);
     }
-    //Same sequence continue
-    (compareArrays(computerMoves, playerMoves)) ? this.computerMove() : console.log('no match');
+    //stop immediately if wrong button is pressed or else compare array and continue if true
+    if (playerMoves[playerCount] === computerMoves[playerCount]) {
+      (compareArrays(computerMoves, playerMoves)) ? this.computerMove() : console.log('sequence not complete');
+    } else {
+      return (console.log('wrong move'))
+    }
   }
 
   //Toggle the game options on/off
@@ -103,7 +107,10 @@ class App extends Component {
       console.log(buttonRef)
       }, 2000 * index)
     })
-    this.setState({computerTurn: false})
+    this.setState({
+      computerTurn: false,
+      playerMoves: []
+    })
   }
 
   renderComputerMove(buttonRef) {
@@ -127,6 +134,7 @@ class App extends Component {
           buttonToggles={this.state.buttonToggle}
           optionButtonsToggles={this.state.optionButtonsToggles}
           computerTurn={this.state.computerTurn}
+          count={this.state.computerMoves.length}
         />
       </div>
     );

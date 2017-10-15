@@ -1,9 +1,9 @@
 import React from 'react';
 import './styles.css';
 
-const CountDisplay = () => (
+const CountDisplay = ({count}) => (
   <div className="Count">
-    <div className="Count-window">10</div>
+    <div className="Count-window">{count}</div>
     <h3>count</h3>
   </div>
 )

@@ -3,7 +3,7 @@ import './styles.css';
 import CountDisplay from '../CountDisplay/index.js';
 import OptionButton from '../OptionButton/index.js';
 
-const Options = ({handleClick, optionButtonsToggles}) => {
+const Options = ({handleClick, optionButtonsToggles, count}) => {
   const renderButton = (classValue, value) => {
     return (
       <OptionButton 
@@ -17,7 +17,7 @@ const Options = ({handleClick, optionButtonsToggles}) => {
 
   return (
     <div className="Options">
-      <CountDisplay />
+      <CountDisplay count={count} />
       <div className="Button-container">
         {renderButton('on', 'On/Off')}
         {renderButton('strict', 'Strict')}

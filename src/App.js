@@ -12,10 +12,12 @@ class App extends Component {
       optionButtonsToggles: {
         on: false,
         strict: false,
+        start: false,
       },
-      computerTurn: true,
+      computerTurn: false,
       computerMoves: [],
       playerMoves: [],
+      wrongMove: false,
     }
   }
   //Player button click functions
@@ -37,7 +39,9 @@ class App extends Component {
       this.setState({ 
         buttonToggle: { [buttonRef]: false },
       })
-      this.matchSequence()
+      if (this.state.optionButtonsToggles.start) {
+        this.matchSequence()        
+      }
     }
   }
   //Match computer sequence
@@ -50,23 +54,27 @@ class App extends Component {
       return arr1.length === arr2.length 
         && arr1.every((element, index) => element === arr2[index]);
     }
-    //stop immediately if wrong button is pressed
+    //Current player move matches computer and moves are the same continue computer sequence
     if (playerMoves[playerCount] === computerMoves[playerCount]) {
-      //Make sure the computerMove and playerMove arrays are the same
       if (compareArrays(computerMoves, playerMoves)) {
         this.setState({computerTurn: true})
         this.computerMove()
-      } else {
-        console.log('sequence not complete');
-      }
+      } 
     } else {
-      //Restart game if in strict mode or else restart last computer sequence
-      if (this.state.optionButtonsToggles.strict) {
-        playSound()
-        this.startBtnClicked()
-      } else {
-        return (console.log('wrong move - normal mode'))        
-      }
+        const wrongMove = () => {
+          playSound()
+          this.setState({
+            wrongMove: true,
+          })
+        }
+        //Restart game if in strict mode or else restart last computer sequence
+        if (this.state.optionButtonsToggles.strict) {
+          wrongMove()
+          this.startBtnClicked()
+        } else {
+          wrongMove()
+          setTimeout(() => this.drawComputerMoves(this.state.computerMoves), 2000)
+        }
     }
   }
 
@@ -74,6 +82,13 @@ class App extends Component {
   toggleOptionsButtons(button) {
     if (button === 'start') {
       return this.startBtnClicked(button)
+    }
+    if (button === 'on') {
+      this.setState({
+        computerMoves: [],
+        playerMoves: [],
+        optionButtonsToggles: {...this.state.optionButtonsToggles, start: false}
+      })
     }
     this.setState((prevState) => {
       return { optionButtonsToggles: {...prevState.optionButtonsToggles, [button]: !prevState.optionButtonsToggles[button]} }
@@ -87,6 +102,7 @@ class App extends Component {
         computerMoves: [],
         playerMoves: [],
         computerTurn: true,
+        optionButtonsToggles: {...this.state.optionButtonsToggles, start: true}
       }, () => this.computerMove())
     }
   }
@@ -108,10 +124,14 @@ class App extends Component {
       this.renderComputerMove(buttonRef)
       }, 2000 * index)
     })
-    this.setState({
-      computerTurn: false,
-      playerMoves: []
-    })
+    setTimeout((moves) => {
+      this.setState({
+        computerTurn: false,
+        playerMoves: [],
+        wrongMove: false,
+      })
+    }, 2000 * moves.length)
+
   }
 
   renderComputerMove(buttonRef) {
@@ -136,6 +156,7 @@ class App extends Component {
           optionButtonsToggles={this.state.optionButtonsToggles}
           computerTurn={this.state.computerTurn}
           count={this.state.computerMoves.length}
+          wrongMove={this.state.wrongMove}
         />
       </div>
     );

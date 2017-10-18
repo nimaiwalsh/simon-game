@@ -3,12 +3,22 @@
   color: greenyellow;
   font-size: 1.4rem;
   border-radius: 5px;
-  width: 50%;
+  width: 30%;
   height: 40px;
   margin: 4px auto 0 auto;
   display: flex;
   justify-content: center;
   align-items: center; 
+}
+
+.Count-window > span.on {
+  opacity: 1;
+  transition: all 2s;
+}
+
+.Count-window > span.off {
+  opacity: 0;
+  transition: all 2s;  
 }
 
 .Count > h3 {

@@ -11,7 +11,9 @@ const GameBoard = ({
   optionButtonsToggles, 
   computerTurn,
   count,
+  wrongMove,
   }) => {
+  const addclass =  wrongMove ? 'shake' : ''    
   //Render buttons
   const renderBtn = (buttonRef) => {
     return (
@@ -24,7 +26,7 @@ const GameBoard = ({
     )
   }
   return (
-    <div className="Game-board">
+    <div className={`Game-board ${addclass}`}>
       <Options 
         handleClick={(classValue) => handleClickOptions(classValue)}
         optionButtonsToggles={optionButtonsToggles}

@@ -17,7 +17,7 @@ const Options = ({handleClick, optionButtonsToggles, count}) => {
 
   return (
     <div className="Options">
-      <CountDisplay count={count} />
+      <CountDisplay count={count} on={optionButtonsToggles.on}/>
       <div className="Button-container">
         {renderButton('on', 'On/Off')}
         {renderButton('strict', 'Strict')}

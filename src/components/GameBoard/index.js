@@ -12,6 +12,7 @@ const GameBoard = ({
   computerTurn,
   count,
   wrongMove,
+  win,
   }) => {
   const addclass =  wrongMove ? 'shake' : ''    
   //Render buttons
@@ -31,6 +32,7 @@ const GameBoard = ({
         handleClick={(classValue) => handleClickOptions(classValue)}
         optionButtonsToggles={optionButtonsToggles}
         count={count}
+        win={win}
       />
       {renderBtn('greenBtn')}
       {renderBtn('redBtn')}

@@ -4,6 +4,7 @@ const playSound = (buttonRef) => {
   const sound3 = new Audio(require('../assets/simonSound3.mp3'));
   const sound4 = new Audio(require('../assets/simonSound4.mp3'));
   const wrongMove = new Audio(require('../assets/wrongMove.m4a'))
+  const winGame = new Audio(require('../assets/win-game.mp3'));
   switch(buttonRef) {
     case 'greenBtn':
       sound1.play()
@@ -17,8 +18,13 @@ const playSound = (buttonRef) => {
     case 'yellowBtn':
       sound4.play()
       break;
-    default:
+    case 'wrong':
       wrongMove.play()
+      break;
+    case 'win':
+      winGame.play()
+      break;
+    default:
       break;
   }
 }

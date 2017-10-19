@@ -18,6 +18,7 @@ class App extends Component {
       computerMoves: [],
       playerMoves: [],
       wrongMove: false,
+      win: false,
     }
   }
   //Player button click functions
@@ -57,12 +58,19 @@ class App extends Component {
     //Current player move matches computer and moves are the same continue computer sequence
     if (playerMoves[playerCount] === computerMoves[playerCount]) {
       if (compareArrays(computerMoves, playerMoves)) {
+        //Win game function
+        if (this.state.playerMoves.length === 20) {
+          playSound('win')
+          this.setState({win: true})
+          return setTimeout(() => this.startBtnClicked(), 4000)
+        }
+        //Continue computer move
         this.setState({computerTurn: true})
         this.computerMove()
       } 
     } else {
         const wrongMove = () => {
-          playSound()
+          playSound('wrong')
           this.setState({
             wrongMove: true,
           })
@@ -80,16 +88,16 @@ class App extends Component {
 
   //Toggle the game options on/off
   toggleOptionsButtons(button) {
-    if (button === 'start') {
-      return this.startBtnClicked(button)
-    }
+    if (button === 'start') return this.startBtnClicked(button)
+    if (button === 'strict' && !this.state.optionButtonsToggles.on) return
     if (button === 'on') {
       this.setState({
         computerMoves: [],
         playerMoves: [],
-        optionButtonsToggles: {...this.state.optionButtonsToggles, start: false}
+        optionButtonsToggles: {...this.state.optionButtonsToggles, start: false, strict: false}
       })
     }
+    //Toggle buttons on/off
     this.setState((prevState) => {
       return { optionButtonsToggles: {...prevState.optionButtonsToggles, [button]: !prevState.optionButtonsToggles[button]} }
     })
@@ -97,11 +105,12 @@ class App extends Component {
 
   //Startbutton clicked
   startBtnClicked() {
-    if (this.state.optionButtonsToggles.on) {
+    if(this.state.optionButtonsToggles.on) {
       this.setState({
         computerMoves: [],
         playerMoves: [],
         computerTurn: true,
+        win: false,
         optionButtonsToggles: {...this.state.optionButtonsToggles, start: true}
       }, () => this.computerMove())
     }
@@ -109,11 +118,11 @@ class App extends Component {
 
   //Computer random sequence
   computerMove() {
-    const randomNum = Math.floor(Math.random() * 4 + 1);
-    const moves = this.state.computerMoves;
-    moves.push(randomNum);
+    const randomNum = Math.floor(Math.random() * 4 + 1)
+    const moves = this.state.computerMoves
+    moves.push(randomNum)
     this.setState({ computerMoves: moves })
-    setTimeout(() => {this.drawComputerMoves(moves)}, 2000);
+    setTimeout(() => {this.drawComputerMoves(moves)}, 2000)
   }
   //Render computer sequence
   drawComputerMoves(moves) {
@@ -157,6 +166,7 @@ class App extends Component {
           computerTurn={this.state.computerTurn}
           count={this.state.computerMoves.length}
           wrongMove={this.state.wrongMove}
+          win={this.state.win}
         />
       </div>
     );

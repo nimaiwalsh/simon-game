@@ -11,7 +11,7 @@
 }
 
 .greenBtn {
-  background-color: #00A74A;
+  background-color: #2EBB8A;
 }
 
 .greenBtn-on {
@@ -19,23 +19,23 @@
 }
 
 .redBtn {
-  background-color: #9F0F17;
+  background-color: #ff9a9e;
 }
 
 .redBtn-on {
-  background-color: #CE1919;
+  background-color: #C41414;
 }
 
 .blueBtn {
-  background-color: #131360;
+  background-color: #BCC2EE;
 }
 
 .blueBtn-on {
-  background-color: #2727B5;
+  background-color: #66a6ff;
 }
 
 .yellowBtn {
-  background-color: #A4A405;
+  background-color: #fbff8f;
 }
 
 .yellowBtn-on {

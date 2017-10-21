@@ -4,6 +4,7 @@
   background-color: #000;
   border-radius: 100px;
   position: relative;
+  box-shadow: -15px 15px 20px #878585;
 }
 
 .greenBtn {

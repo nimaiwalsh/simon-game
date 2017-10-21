@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import logo from './logo.svg';
 import './App.css';
 import GameBoard from './components/GameBoard/index.js';
+import Signature from './components/Signature/index.js';
 import playSound from './utils/playSound.js';
 
 class App extends Component {
@@ -157,6 +158,7 @@ class App extends Component {
   render() {
     return (
       <div className="App">
+        <h1>Simo's Sequences</h1>
         <GameBoard 
           handleMouseDown={(buttonRef) => this.playerBtnClick(buttonRef)}
           handleMouseUp={(buttonRef) => this.playerBtnUp(buttonRef)}
@@ -168,6 +170,7 @@ class App extends Component {
           wrongMove={this.state.wrongMove}
           win={this.state.win}
         />
+        <Signature />
       </div>
     );
   }

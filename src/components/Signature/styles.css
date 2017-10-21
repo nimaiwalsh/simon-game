@@ -1,0 +1,25 @@
+.Signatures {
+ position: fixed;
+ bottom: 10px;
+ left: 10px;
+ font-size: 1.2em;
+}
+
+.Signatures a, a:visited{
+  text-decoration: none;
+  text-transform: lowercase;
+  color: #3F3C3C;
+}
+
+.Signatures a:hover, a:active {
+  color: #DA5959;
+}
+
+ul {
+  list-style-type: none;
+}
+
+li {
+  display: inline;
+  margin-left: 3px;
+}

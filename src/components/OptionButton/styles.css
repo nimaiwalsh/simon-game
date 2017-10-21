@@ -6,7 +6,9 @@
 }
 
 .Option-button > button {
-  background-color: gray;
+  background-color: #628A96;
+  box-shadow: 0 5px 8px #5E5B5B;
+  border: none;
   width: 25px;
   height: 25px;
   border-radius: 50%;
@@ -15,12 +17,16 @@
   transition: background-color 1s;
 }
 
+.Option-button > button:active {
+  box-shadow: 0 1px 2px black;
+}
+
 button.on-on {
   background-color: #A4F425;
 }
 
 button.strict-on {
-  background-color: #CD3333;
+  background-color: #C41F0D;
 }
 
 button.start-on {

@@ -123,16 +123,16 @@ class App extends Component {
     const moves = this.state.computerMoves
     moves.push(randomNum)
     this.setState({ computerMoves: moves })
-    setTimeout(() => {this.drawComputerMoves(moves)}, 2000)
+    setTimeout(() => {this.drawComputerMoves(moves)}, 1500)
   }
   //Render computer sequence
   drawComputerMoves(moves) {
     moves.forEach((move, index) => {
-      setTimeout(() => {
+      const time = setTimeout(() => {
       let buttonRef = ['greenBtn', 'redBtn', 'blueBtn', 'yellowBtn'];
       buttonRef = buttonRef[move - 1]
       this.renderComputerMove(buttonRef)
-      }, 2000 * index)
+      }, 1000 * index)
     })
     setTimeout((moves) => {
       this.setState({
@@ -140,7 +140,7 @@ class App extends Component {
         playerMoves: [],
         wrongMove: false,
       })
-    }, 2000 * moves.length)
+    }, 1000 * moves.length)
 
   }
 
@@ -152,13 +152,14 @@ class App extends Component {
     //Turn button off after 1.5 second delay
     setTimeout(() => {
       this.setState({ buttonToggle: { [buttonRef]: false }})
-    }, 1500)
+    }, 800)
   }
 
   render() {
     return (
       <div className="App">
         <h1>Simo's Sequences</h1>
+        <h2>Follow simo's 20 moves to win</h2>
         <GameBoard 
           handleMouseDown={(buttonRef) => this.playerBtnClick(buttonRef)}
           handleMouseUp={(buttonRef) => this.playerBtnUp(buttonRef)}
